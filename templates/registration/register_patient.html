@@ -9,17 +9,29 @@
                     <h3 class="text-center">Inscription Patient</h3>
                 </div>
                 <div class="card-body">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                    
                     <form method="post">
                         {% csrf_token %}
                         
                         <div class="form-group mb-3">
                             <label for="username">Nom d'utilisateur</label>
-                            <input type="text" class="form-control" id="username" name="username" required>
+                            <input type="text" class="form-control" id="username" name="username" value="{{ form_data.username|default:'' }}" required>
+                            {% if form_data.username %}
+                                <small class="text-muted">Ce nom d'utilisateur est déjà pris. Veuillez en choisir un autre.</small>
+                            {% endif %}
                         </div>
 
                         <div class="form-group mb-3">
                             <label for="email">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" required>
+                            <input type="email" class="form-control" id="email" name="email" value="{{ form_data.email|default:'' }}" required>
+                            {% if form_data.email %}
+                                <small class="text-muted">Cette adresse email est déjà utilisée. Veuillez en utiliser une autre.</small>
+                            {% endif %}
                         </div>
 
                         <div class="form-group mb-3">
@@ -31,54 +43,59 @@
                             <div class="col-md-6">
                                 <div class="form-group mb-3">
                                     <label for="first_name">Prénom</label>
-                                    <input type="text" class="form-control" id="first_name" name="first_name" required>
+                                    <input type="text" class="form-control" id="first_name" name="first_name" value="{{ form_data.first_name|default:'' }}" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group mb-3">
                                     <label for="last_name">Nom</label>
-                                    <input type="text" class="form-control" id="last_name" name="last_name" required>
+                                    <input type="text" class="form-control" id="last_name" name="last_name" value="{{ form_data.last_name|default:'' }}" required>
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-group mb-3">
                             <label for="date_naissance">Date de naissance</label>
-                            <input type="date" class="form-control" id="date_naissance" name="date_naissance" required>
+                            <input type="date" class="form-control" id="date_naissance" name="date_naissance" value="{{ form_data.date_naissance|default:'' }}" required>
                         </div>
 
                         <div class="form-group mb-3">
                             <label for="sexe">Sexe</label>
                             <select class="form-control" id="sexe" name="sexe" required>
-                                <option value="M">Masculin</option>
-                                <option value="F">Féminin</option>
-                                <option value="A">Autre</option>
+                                <option value="M" {% if form_data.sexe == 'M' %}selected{% endif %}>Masculin</option>
+                                <option value="F" {% if form_data.sexe == 'F' %}selected{% endif %}>Féminin</option>
+                                <option value="A" {% if form_data.sexe == 'A' %}selected{% endif %}>Autre</option>
                             </select>
                         </div>
 
                         <div class="form-group mb-3">
                             <label for="telephone">Téléphone</label>
-                            <input type="tel" class="form-control" id="telephone" name="telephone" required>
+                            <input type="tel" class="form-control" id="telephone" name="telephone" value="{{ form_data.telephone|default:'' }}" required>
                         </div>
 
                         <div class="form-group mb-3">
                             <label for="adresse">Adresse</label>
-                            <textarea class="form-control" id="adresse" name="adresse" required></textarea>
+                            <input type="text" class="form-control" id="adresse" name="adresse" value="{{ form_data.adresse|default:'' }}" required>
                         </div>
 
                         <div class="form-group mb-3">
                             <label for="groupe_sanguin">Groupe sanguin</label>
-                            <select class="form-control" id="groupe_sanguin" name="groupe_sanguin">
+                            <select class="form-control" id="groupe_sanguin" name="groupe_sanguin" required>
                                 <option value="">Sélectionnez votre groupe sanguin</option>
-                                <option value="A+">A+</option>
-                                <option value="A-">A-</option>
-                                <option value="B+">B+</option>
-                                <option value="B-">B-</option>
-                                <option value="AB+">AB+</option>
-                                <option value="AB-">AB-</option>
-                                <option value="O+">O+</option>
-                                <option value="O-">O-</option>
+                                <option value="A+" {% if form_data.groupe_sanguin == 'A+' %}selected{% endif %}>A+</option>
+                                <option value="A-" {% if form_data.groupe_sanguin == 'A-' %}selected{% endif %}>A-</option>
+                                <option value="B+" {% if form_data.groupe_sanguin == 'B+' %}selected{% endif %}>B+</option>
+                                <option value="B-" {% if form_data.groupe_sanguin == 'B-' %}selected{% endif %}>B-</option>
+                                <option value="AB+" {% if form_data.groupe_sanguin == 'AB+' %}selected{% endif %}>AB+</option>
+                                <option value="AB-" {% if form_data.groupe_sanguin == 'AB-' %}selected{% endif %}>AB-</option>
+                                <option value="O+" {% if form_data.groupe_sanguin == 'O+' %}selected{% endif %}>O+</option>
+                                <option value="O-" {% if form_data.groupe_sanguin == 'O-' %}selected{% endif %}>O-</option>
                             </select>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="antecedents_medicaux">Antécédents médicaux (optionnel)</label>
+                            <textarea class="form-control" id="antecedents_medicaux" name="antecedents_medicaux" rows="3">{{ form_data.antecedents_medicaux|default:'' }}</textarea>
                         </div>
 
                         <div class="text-center">

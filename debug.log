@@ -17295,3 +17295,278 @@ DEBUG 2025-05-14 15:01:50,000 utils (0.000)
 DEBUG 2025-05-14 15:01:50,004 utils (0.016) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
 DEBUG 2025-05-14 15:01:50,008 utils (0.000) SELECT `django_session`.`session_key`, `django_session`.`session_data`, `django_session`.`expire_date` FROM `django_session` WHERE (`django_session`.`expire_date` > '2025-05-14 14:01:49.991615' AND `django_session`.`session_key` = 'fli8ygyat7gpfcw78b9mi2foi2kwuwsz') LIMIT 21; args=('2025-05-14 14:01:49.991615', 'fli8ygyat7gpfcw78b9mi2foi2kwuwsz'); alias=default
 WARNING 2025-05-14 15:01:50,979 log Not Found: /favicon.ico
+DEBUG 2025-05-16 10:11:14,994 utils (0.078) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-05-16 10:11:14,999 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-05-16 10:11:15,101 utils (0.110) 
+            SELECT
+                table_name,
+                table_type,
+                table_comment
+            FROM information_schema.tables
+            WHERE table_schema = DATABASE()
+            ; args=None; alias=default
+DEBUG 2025-05-16 10:11:15,146 utils (0.031) SELECT `django_migrations`.`id`, `django_migrations`.`app`, `django_migrations`.`name`, `django_migrations`.`applied` FROM `django_migrations`; args=(); alias=default
+DEBUG 2025-05-16 10:11:32,287 utils (0.016) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-05-16 10:11:32,289 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-05-16 10:11:32,309 utils (0.016) 
+            SELECT
+                table_name,
+                table_type,
+                table_comment
+            FROM information_schema.tables
+            WHERE table_schema = DATABASE()
+            ; args=None; alias=default
+DEBUG 2025-05-16 10:11:32,323 utils (0.000) SELECT `django_migrations`.`id`, `django_migrations`.`app`, `django_migrations`.`name`, `django_migrations`.`applied` FROM `django_migrations`; args=(); alias=default
+DEBUG 2025-05-16 10:11:37,028 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-05-16 10:11:37,030 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-05-16 10:11:37,049 utils (0.016) 
+            SELECT
+                table_name,
+                table_type,
+                table_comment
+            FROM information_schema.tables
+            WHERE table_schema = DATABASE()
+            ; args=None; alias=default
+DEBUG 2025-05-16 10:11:37,065 utils (0.015) SELECT `django_migrations`.`id`, `django_migrations`.`app`, `django_migrations`.`name`, `django_migrations`.`applied` FROM `django_migrations`; args=(); alias=default
+DEBUG 2025-05-16 10:24:10,915 utils (0.047) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-05-16 10:24:10,915 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-05-16 10:24:10,970 utils (0.047) 
+            SELECT
+                table_name,
+                table_type,
+                table_comment
+            FROM information_schema.tables
+            WHERE table_schema = DATABASE()
+            ; args=None; alias=default
+DEBUG 2025-05-16 10:24:10,993 utils (0.015) SELECT `django_migrations`.`id`, `django_migrations`.`app`, `django_migrations`.`name`, `django_migrations`.`applied` FROM `django_migrations`; args=(); alias=default
+WARNING 2025-05-16 10:24:19,361 log Not Found: /favicon.ico
+WARNING 2025-05-16 10:25:53,506 log Not Found: /images/arrow-down.svg
+DEBUG 2025-05-16 10:26:15,869 utils (0.015) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-05-16 10:26:15,870 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-05-16 10:26:15,938 utils (0.063) None; args=['pbkdf2_sha256$1000000$2rbXXBU5zPe2PIr3Qe13BL$Rhqh9h5qMsFq/9WPBR0NMxKf0htH/PbhPKXmZceWJxo=', None, False, 'majda', 'MAJDA', 'AHMIDAT', 'majda@gmail.com', False, True, '2025-05-16 09:26:13.608892']; alias=default
+DEBUG 2025-05-16 10:26:16,418 utils (0.000) SELECT `auth_user`.`id`, `auth_user`.`password`, `auth_user`.`last_login`, `auth_user`.`is_superuser`, `auth_user`.`username`, `auth_user`.`first_name`, `auth_user`.`last_name`, `auth_user`.`email`, `auth_user`.`is_staff`, `auth_user`.`is_active`, `auth_user`.`date_joined` FROM `auth_user` LIMIT 21; args=(); alias=default
+ERROR 2025-05-16 10:26:16,592 log Internal Server Error: /register/patient/
+Traceback (most recent call last):
+  File "C:\Users\majda\Documents\AlloDocMedecins\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majda\Documents\AlloDocMedecins\venv\Lib\site-packages\django\db\backends\mysql\base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majda\Documents\AlloDocMedecins\venv\Lib\site-packages\MySQLdb\cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majda\Documents\AlloDocMedecins\venv\Lib\site-packages\MySQLdb\cursors.py", line 330, in _query
+    db.query(q)
+  File "C:\Users\majda\Documents\AlloDocMedecins\venv\Lib\site-packages\MySQLdb\connections.py", line 280, in query
+    _mysql.connection.query(self, query)
+MySQLdb.IntegrityError: (1062, "Duplicate entry 'majda' for key 'auth_user.username'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\majda\Documents\AlloDocMedecins\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majda\Documents\AlloDocMedecins\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majda\Documents\AlloDocMed\AlloDocMedecins\main\auth_views.py", line 118, in register_patient
+    user = User.objects.create_user(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majda\Documents\AlloDocMedecins\venv\Lib\site-packages\django\contrib\auth\models.py", line 175, in create_user
+    return self._create_user(username, email, password, **extra_fields)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majda\Documents\AlloDocMedecins\venv\Lib\site-packages\django\contrib\auth\models.py", line 163, in _create_user
+    user.save(using=self._db)
+  File "C:\Users\majda\Documents\AlloDocMedecins\venv\Lib\site-packages\django\contrib\auth\base_user.py", line 65, in save
+    super().save(*args, **kwargs)
+  File "C:\Users\majda\Documents\AlloDocMedecins\venv\Lib\site-packages\django\db\models\base.py", line 902, in save
+    self.save_base(
+  File "C:\Users\majda\Documents\AlloDocMedecins\venv\Lib\site-packages\django\db\models\base.py", line 1008, in save_base
+    updated = self._save_table(
+              ^^^^^^^^^^^^^^^^^
+  File "C:\Users\majda\Documents\AlloDocMedecins\venv\Lib\site-packages\django\db\models\base.py", line 1169, in _save_table
+    results = self._do_insert(
+              ^^^^^^^^^^^^^^^^
+  File "C:\Users\majda\Documents\AlloDocMedecins\venv\Lib\site-packages\django\db\models\base.py", line 1210, in _do_insert
+    return manager._insert(
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\majda\Documents\AlloDocMedecins\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majda\Documents\AlloDocMedecins\venv\Lib\site-packages\django\db\models\query.py", line 1864, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majda\Documents\AlloDocMedecins\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1882, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Users\majda\Documents\AlloDocMedecins\venv\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majda\Documents\AlloDocMedecins\venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majda\Documents\AlloDocMedecins\venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majda\Documents\AlloDocMedecins\venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "C:\Users\majda\Documents\AlloDocMedecins\venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\majda\Documents\AlloDocMedecins\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majda\Documents\AlloDocMedecins\venv\Lib\site-packages\django\db\backends\mysql\base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majda\Documents\AlloDocMedecins\venv\Lib\site-packages\MySQLdb\cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\majda\Documents\AlloDocMedecins\venv\Lib\site-packages\MySQLdb\cursors.py", line 330, in _query
+    db.query(q)
+  File "C:\Users\majda\Documents\AlloDocMedecins\venv\Lib\site-packages\MySQLdb\connections.py", line 280, in query
+    _mysql.connection.query(self, query)
+django.db.utils.IntegrityError: (1062, "Duplicate entry 'majda' for key 'auth_user.username'")
+DEBUG 2025-05-16 10:27:12,726 utils (0.016) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-05-16 10:27:12,750 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-05-16 10:27:12,780 utils (0.015) 
+            SELECT
+                table_name,
+                table_type,
+                table_comment
+            FROM information_schema.tables
+            WHERE table_schema = DATABASE()
+            ; args=None; alias=default
+DEBUG 2025-05-16 10:27:12,812 utils (0.000) SELECT `django_migrations`.`id`, `django_migrations`.`app`, `django_migrations`.`name`, `django_migrations`.`applied` FROM `django_migrations`; args=(); alias=default
+DEBUG 2025-05-16 10:27:47,339 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-05-16 10:27:47,342 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-05-16 10:27:47,364 utils (0.015) 
+            SELECT
+                table_name,
+                table_type,
+                table_comment
+            FROM information_schema.tables
+            WHERE table_schema = DATABASE()
+            ; args=None; alias=default
+DEBUG 2025-05-16 10:27:47,381 utils (0.016) SELECT `django_migrations`.`id`, `django_migrations`.`app`, `django_migrations`.`name`, `django_migrations`.`applied` FROM `django_migrations`; args=(); alias=default
+DEBUG 2025-05-16 10:27:51,490 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-05-16 10:27:51,490 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-05-16 10:27:51,522 utils (0.031) 
+            SELECT
+                table_name,
+                table_type,
+                table_comment
+            FROM information_schema.tables
+            WHERE table_schema = DATABASE()
+            ; args=None; alias=default
+DEBUG 2025-05-16 10:27:51,525 utils (0.000) SELECT `django_migrations`.`id`, `django_migrations`.`app`, `django_migrations`.`name`, `django_migrations`.`applied` FROM `django_migrations`; args=(); alias=default
+DEBUG 2025-05-16 10:28:02,131 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-05-16 10:28:02,132 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-05-16 10:28:02,132 utils (0.000) SELECT 1 AS `a` FROM `auth_user` WHERE `auth_user`.`username` = 'majda' LIMIT 1; args=(1, 'majda'); alias=default
+WARNING 2025-05-16 10:28:02,318 log Not Found: /images/arrow-down.svg
+DEBUG 2025-05-16 10:28:33,859 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-05-16 10:28:33,860 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-05-16 10:28:33,868 utils (0.015) SELECT 1 AS `a` FROM `auth_user` WHERE `auth_user`.`username` = 'ahmidat' LIMIT 1; args=(1, 'ahmidat'); alias=default
+DEBUG 2025-05-16 10:28:33,871 utils (0.000) SELECT 1 AS `a` FROM `auth_user` WHERE `auth_user`.`email` = 'majda@gmail.com' LIMIT 1; args=(1, 'majda@gmail.com'); alias=default
+DEBUG 2025-05-16 10:28:36,771 utils (0.031) INSERT INTO `auth_user` (`password`, `last_login`, `is_superuser`, `username`, `first_name`, `last_name`, `email`, `is_staff`, `is_active`, `date_joined`) VALUES ('pbkdf2_sha256$1000000$NMXXHVHcbuvkCFb9DyebEH$j7scpnMO7EX0tvo5D6tsZA+/tJUEEljkWzPelePxA90=', NULL, 0, 'ahmidat', 'MAJDA', 'AHMIDAT', 'majda@gmail.com', 0, 1, '2025-05-16 09:28:33.872294'); args=['pbkdf2_sha256$1000000$NMXXHVHcbuvkCFb9DyebEH$j7scpnMO7EX0tvo5D6tsZA+/tJUEEljkWzPelePxA90=', None, False, 'ahmidat', 'MAJDA', 'AHMIDAT', 'majda@gmail.com', False, True, '2025-05-16 09:28:33.872294']; alias=default
+DEBUG 2025-05-16 10:28:36,904 utils (0.109) INSERT INTO `main_patient` (`user_id`, `date_naissance`, `sexe`, `telephone`, `adresse`, `groupe_sanguin`, `antecedents_medicaux`, `created_at`, `updated_at`) VALUES (3, '2025-05-11', 'F', '0610107056', 'SIDI ALLAL BAHRAOUI KHMISSAT', 'AB+', '', '2025-05-16 09:28:36.787655', '2025-05-16 09:28:36.787655'); args=[3, '2025-05-11', 'F', '0610107056', 'SIDI ALLAL BAHRAOUI KHMISSAT', 'AB+', '', '2025-05-16 09:28:36.787655', '2025-05-16 09:28:36.787655']; alias=default
+DEBUG 2025-05-16 10:28:36,932 utils (0.016) SELECT 1 AS `a` FROM `django_session` WHERE `django_session`.`session_key` = '6jianqmvzirxbtb4nt82wlhudqmrd56r' LIMIT 1; args=(1, '6jianqmvzirxbtb4nt82wlhudqmrd56r'); alias=default
+DEBUG 2025-05-16 10:28:36,936 utils (0.000) BEGIN; args=None; alias=default
+DEBUG 2025-05-16 10:28:36,941 utils (0.015) INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALUES ('6jianqmvzirxbtb4nt82wlhudqmrd56r', 'e30:1uFrMq:B1tv3axWtHOfhccYdxPcHYZ783PYJ9CnfVBLBrpXq60', '2025-05-30 09:28:36.935781'); args=('6jianqmvzirxbtb4nt82wlhudqmrd56r', 'e30:1uFrMq:B1tv3axWtHOfhccYdxPcHYZ783PYJ9CnfVBLBrpXq60', '2025-05-30 09:28:36.935781'); alias=default
+DEBUG 2025-05-16 10:28:36,946 utils (0.000) COMMIT; args=None; alias=default
+DEBUG 2025-05-16 10:28:36,952 utils (0.000) UPDATE `auth_user` SET `last_login` = '2025-05-16 09:28:36.946958' WHERE `auth_user`.`id` = 3; args=('2025-05-16 09:28:36.946958', 3); alias=default
+DEBUG 2025-05-16 10:28:36,971 utils (0.000) BEGIN; args=None; alias=default
+DEBUG 2025-05-16 10:28:36,971 utils (0.000) UPDATE `django_session` SET `session_data` = '.eJxVjEsOwjAMBe-SNYpKIicxS_acobJjlxRQIvWzqrg7VOoCtm9m3mZ6WpfSr7NO_SjmYrw5_W5M-al1B_Kgem82t7pMI9tdsQed7a2Jvq6H-3dQaC7fOtKZZfAQBL0qMXCGgMmlDgailDk4TASQfHTOMwIKd8iiqCGiqHl_APd1OFY:1uFrMq:JBzYuGusDFkAhS6fm9-mLiZEsnuazyrOQtEy8AMJzdw', `expire_date` = '2025-05-30 09:28:36.971505' WHERE `django_session`.`session_key` = '6jianqmvzirxbtb4nt82wlhudqmrd56r'; args=('.eJxVjEsOwjAMBe-SNYpKIicxS_acobJjlxRQIvWzqrg7VOoCtm9m3mZ6WpfSr7NO_SjmYrw5_W5M-al1B_Kgem82t7pMI9tdsQed7a2Jvq6H-3dQaC7fOtKZZfAQBL0qMXCGgMmlDgailDk4TASQfHTOMwIKd8iiqCGiqHl_APd1OFY:1uFrMq:JBzYuGusDFkAhS6fm9-mLiZEsnuazyrOQtEy8AMJzdw', '2025-05-30 09:28:36.971505', '6jianqmvzirxbtb4nt82wlhudqmrd56r'); alias=default
+DEBUG 2025-05-16 10:28:36,971 utils (0.000) COMMIT; args=None; alias=default
+DEBUG 2025-05-16 10:28:37,006 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-05-16 10:28:37,012 utils (0.000) SELECT `django_session`.`session_key`, `django_session`.`session_data`, `django_session`.`expire_date` FROM `django_session` WHERE (`django_session`.`expire_date` > '2025-05-16 09:28:36.997527' AND `django_session`.`session_key` = '6jianqmvzirxbtb4nt82wlhudqmrd56r') LIMIT 21; args=('2025-05-16 09:28:36.997527', '6jianqmvzirxbtb4nt82wlhudqmrd56r'); alias=default
+DEBUG 2025-05-16 10:28:37,018 utils (0.015) SELECT `auth_user`.`id`, `auth_user`.`password`, `auth_user`.`last_login`, `auth_user`.`is_superuser`, `auth_user`.`username`, `auth_user`.`first_name`, `auth_user`.`last_name`, `auth_user`.`email`, `auth_user`.`is_staff`, `auth_user`.`is_active`, `auth_user`.`date_joined` FROM `auth_user` WHERE `auth_user`.`id` = 3 LIMIT 21; args=(3,); alias=default
+DEBUG 2025-05-16 10:28:37,025 utils (0.000) SELECT `main_patient`.`id`, `main_patient`.`user_id`, `main_patient`.`date_naissance`, `main_patient`.`sexe`, `main_patient`.`telephone`, `main_patient`.`adresse`, `main_patient`.`groupe_sanguin`, `main_patient`.`antecedents_medicaux`, `main_patient`.`created_at`, `main_patient`.`updated_at` FROM `main_patient` WHERE `main_patient`.`user_id` = 3 LIMIT 21; args=(3,); alias=default
+DEBUG 2025-05-16 10:28:37,038 utils (0.016) SELECT `main_medecin`.`id` AS `id`, `main_medecin`.`specialite` AS `specialite`, `main_medecin`.`adresse` AS `adresse`, `main_medecin`.`telephone` AS `telephone`, `main_medecin`.`latitude` AS `latitude`, `main_medecin`.`longitude` AS `longitude` FROM `main_medecin` WHERE `main_medecin`.`is_validated_by_admin` = 1; args=(True,); alias=default
+DEBUG 2025-05-16 10:28:37,053 utils (0.016) SELECT `main_pharmacien`.`id` AS `id`, `main_pharmacien`.`adresse` AS `adresse`, `main_pharmacien`.`telephone` AS `telephone`, `main_pharmacien`.`latitude` AS `latitude`, `main_pharmacien`.`longitude` AS `longitude` FROM `main_pharmacien` WHERE `main_pharmacien`.`is_validated_by_admin` = 1; args=(True,); alias=default
+DEBUG 2025-05-16 10:28:37,061 utils (0.000) SELECT `main_laboratoire`.`id` AS `id`, `main_laboratoire`.`adresse` AS `adresse`, `main_laboratoire`.`telephone` AS `telephone`, `main_laboratoire`.`latitude` AS `latitude`, `main_laboratoire`.`longitude` AS `longitude` FROM `main_laboratoire` WHERE `main_laboratoire`.`is_validated_by_admin` = 1; args=(True,); alias=default
+DEBUG 2025-05-16 10:28:37,074 utils (0.000) SELECT `main_medecin`.`id`, `main_medecin`.`user_id`, `main_medecin`.`specialite`, `main_medecin`.`numero_ordre`, `main_medecin`.`telephone`, `main_medecin`.`adresse`, `main_medecin`.`email_professionnel`, `main_medecin`.`is_validated_by_admin`, `main_medecin`.`is_email_verified`, `main_medecin`.`email_verification_token`, `main_medecin`.`latitude`, `main_medecin`.`longitude`, `main_medecin`.`horaires`, `main_medecin`.`tarif`, `main_medecin`.`services`, `main_medecin`.`photo`, `main_medecin`.`created_at`, `main_medecin`.`updated_at` FROM `main_medecin` WHERE `main_medecin`.`user_id` = 3 LIMIT 21; args=(3,); alias=default
+DEBUG 2025-05-16 10:28:37,114 utils (0.015) SELECT `main_chatmessage`.`id`, `main_chatmessage`.`patient_id`, `main_chatmessage`.`medecin_id`, `main_chatmessage`.`message`, `main_chatmessage`.`is_from_ai`, `main_chatmessage`.`created_at` FROM `main_chatmessage` WHERE `main_chatmessage`.`patient_id` = 1 ORDER BY `main_chatmessage`.`created_at` ASC; args=(1,); alias=default
+DEBUG 2025-05-16 10:28:58,538 utils (0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+DEBUG 2025-05-16 10:28:58,538 utils (0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+DEBUG 2025-05-16 10:28:58,538 utils (0.000) SELECT `django_session`.`session_key`, `django_session`.`session_data`, `django_session`.`expire_date` FROM `django_session` WHERE (`django_session`.`expire_date` > '2025-05-16 09:28:58.524680' AND `django_session`.`session_key` = '6jianqmvzirxbtb4nt82wlhudqmrd56r') LIMIT 21; args=('2025-05-16 09:28:58.524680', '6jianqmvzirxbtb4nt82wlhudqmrd56r'); alias=default
+DEBUG 2025-05-16 10:28:58,554 utils (0.000) SELECT `auth_user`.`id`, `auth_user`.`password`, `auth_user`.`last_login`, `auth_user`.`is_superuser`, `auth_user`.`username`, `auth_user`.`first_name`, `auth_user`.`last_name`, `auth_user`.`email`, `auth_user`.`is_staff`, `auth_user`.`is_active`, `auth_user`.`date_joined` FROM `auth_user` WHERE `auth_user`.`id` = 3 LIMIT 21; args=(3,); alias=default
+DEBUG 2025-05-16 10:28:58,554 utils (0.000) SELECT `main_patient`.`id`, `main_patient`.`user_id`, `main_patient`.`date_naissance`, `main_patient`.`sexe`, `main_patient`.`telephone`, `main_patient`.`adresse`, `main_patient`.`groupe_sanguin`, `main_patient`.`antecedents_medicaux`, `main_patient`.`created_at`, `main_patient`.`updated_at` FROM `main_patient` WHERE `main_patient`.`user_id` = 3 LIMIT 21; args=(3,); alias=default
+DEBUG 2025-05-16 10:28:58,569 utils (0.015) INSERT INTO `main_chatmessage` (`patient_id`, `medecin_id`, `message`, `is_from_ai`, `created_at`) VALUES (1, NULL, 'hi', 0, '2025-05-16 09:28:58.554032'); args=[1, None, 'hi', False, '2025-05-16 09:28:58.554032']; alias=default

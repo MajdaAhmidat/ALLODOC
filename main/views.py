@@ -1,24 +1,37 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required, user_passes_test
-from .models import Medecin, Patient, RendezVous, Laboratoire, Pharmacien, Ordonnance, Disponibilite, ChatMessage
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from django.urls import reverse
 from django.contrib.auth.models import User
-import http.client
-import json
-from django.utils import timezone
-from datetime import datetime, timedelta
 from django.http import JsonResponse
 from django.db import models
-import os
-from dotenv import load_dotenv
-from pathlib import Path
+from django.utils import timezone
+from django.views.decorators.http import require_POST
 from django.core.mail import send_mail
 from django.conf import settings
-from django.views.decorators.http import require_POST
+from pathlib import Path
+import os
+import json
+import http.client
 import time
-import openai
+from datetime import datetime, timedelta
+from dotenv import load_dotenv
+
+# Imports pour le modèle de chatbot
+try:
+    import torch
+    from transformers import DistilBertTokenizerFast, DistilBertForSequenceClassification
+except ImportError:
+    print("Warning: PyTorch or Transformers not installed. Chatbot features will be disabled.")
+    torch = None
+    DistilBertTokenizerFast = None
+    DistilBertForSequenceClassification = None
+
+from .models import (
+    Medecin, Patient, RendezVous, Laboratoire, 
+    Pharmacien, Ordonnance, Disponibilite, ChatMessage
+)
 
 # Get the absolute path to IA.env
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -1199,46 +1212,84 @@ def patient_chat(request):
             is_from_ai=False
         )
         
-        # Appeler l'API ChatGPT
-        conn = http.client.HTTPSConnection("chatgpt-42.p.rapidapi.com")
-        
-        # Préparation du message
-        prompt = f"""Tu es un assistant médical virtuel. 
-        Réponds à la question du patient de manière professionnelle et informative.
-        Si la question concerne des symptômes ou des problèmes de santé :
-        1. Fournis une analyse préliminaire
-        2. Donne des conseils généraux
-        3. Recommande de consulter un médecin si nécessaire
-        
-        IMPORTANT : Précise bien que tu n'es pas un médecin et que tes conseils ne remplacent pas une consultation médicale.
-        
-        Question du patient : {message}"""
-        
-        payload = json.dumps({
-            "text": prompt
-        })
-        
-        headers = {
-            'x-rapidapi-key': settings.OPENAI_API_KEY,
-            'x-rapidapi-host': 'chatgpt-42.p.rapidapi.com',
-            'Content-Type': 'application/json'
-        }
-        
-        conn.request("POST", "/aitohuman", payload, headers)
-        res = conn.getresponse()
-        data = res.read()
-        result = json.loads(data.decode("utf-8"))
-        
-        # Traitement de la réponse
-        if "result" in result:
-            if isinstance(result["result"], str):
-                response = result["result"].strip()
-            elif isinstance(result["result"], list) and result["result"]:
-                response = result["result"][0].strip()
+        try:
+            # Charger le modèle et le tokenizer
+            model_path = os.path.join(BASE_DIR, "chatbot_model")
+            tokenizer = DistilBertTokenizerFast.from_pretrained("distilbert-base-uncased")
+            model = DistilBertForSequenceClassification.from_pretrained(model_path)
+            model.eval()
+            
+            # Prédire la réponse
+            inputs = tokenizer(message, return_tensors="pt", padding=True, truncation=True, max_length=512)
+            
+            with torch.no_grad():
+                outputs = model(**inputs)
+                logits = outputs.logits
+                probabilities = torch.softmax(logits, dim=-1).squeeze()
+                predicted_class = torch.argmax(probabilities).item()
+                confidence = probabilities[predicted_class].item()
+            
+            # Mapping des labels pour les réponses médicales
+            label_map = {
+                0: "D'après votre description, il pourrait s'agir d'un problème de santé courant. Voici quelques conseils généraux : [Conseils de base]. Cependant, je vous recommande de consulter un médecin pour un diagnostic précis.",
+                1: "Vos symptômes pourraient indiquer une condition qui nécessite une attention médicale. Je vous suggère de : [Recommandations]. Pour votre sécurité, consultez un professionnel de santé dès que possible.",
+                2: "Je comprends votre inquiétude. Voici une analyse préliminaire : [Analyse basée sur les symptômes]. Cependant, seul un médecin peut poser un diagnostic précis. Je vous recommande de prendre rendez-vous.",
+                3: "Votre situation semble nécessiter une consultation médicale. Voici quelques points à surveiller : [Points d'attention]. N'hésitez pas à consulter un médecin pour une évaluation complète.",
+                4: "D'après les symptômes décrits, il serait prudent de consulter un médecin. En attendant, voici quelques conseils : [Conseils temporaires]. La consultation médicale reste essentielle."
+            }
+            
+            # Générer la réponse en fonction de la classe prédite
+            base_response = label_map.get(predicted_class, "Je comprends votre question. Pour votre sécurité, je vous recommande de consulter un médecin pour un diagnostic précis.")
+            
+            # Personnaliser la réponse en fonction du message
+            if "douleur" in message.lower():
+                base_response = base_response.replace("[Conseils]", "Essayez de vous reposer et d'appliquer de la glace si la douleur est localisée. Évitez les mouvements brusques.")
+            elif "fièvre" in message.lower():
+                base_response = base_response.replace("[Conseils]", "Restez hydraté et surveillez votre température. Prenez du paracétamol si nécessaire, mais consultez un médecin si la fièvre persiste.")
+            elif "fatigue" in message.lower():
+                base_response = base_response.replace("[Conseils]", "Assurez-vous de bien dormir et de maintenir une alimentation équilibrée. La fatigue peut être le signe de diverses conditions.")
+            
+            response = base_response
+            
+        except Exception as e:
+            print(f"Erreur avec le modèle local : {str(e)}")
+            # Fallback vers l'API ChatGPT
+            conn = http.client.HTTPSConnection("chatgpt-42.p.rapidapi.com")
+            prompt = f"""Tu es un assistant médical virtuel. 
+            Réponds à la question du patient de manière professionnelle et informative.
+            Si la question concerne des symptômes ou des problèmes de santé :
+            1. Fournis une analyse préliminaire
+            2. Donne des conseils généraux
+            3. Recommande de consulter un médecin si nécessaire
+            
+            IMPORTANT : Précise bien que tu n'es pas un médecin et que tes conseils ne remplacent pas une consultation médicale.
+            
+            Question du patient : {message}"""
+            
+            payload = json.dumps({"text": prompt})
+            headers = {
+                'x-rapidapi-key': settings.OPENAI_API_KEY,
+                'x-rapidapi-host': 'chatgpt-42.p.rapidapi.com',
+                'Content-Type': 'application/json'
+            }
+            
+            conn.request("POST", "/aitohuman", payload, headers)
+            res = conn.getresponse()
+            data = res.read()
+            result = json.loads(data.decode("utf-8"))
+            
+            if "result" in result:
+                if isinstance(result["result"], str):
+                    response = result["result"].strip()
+                elif isinstance(result["result"], list) and result["result"]:
+                    response = result["result"][0].strip()
+                else:
+                    response = "Désolé, je n'ai pas pu traiter votre demande correctement."
             else:
                 response = "Désolé, je n'ai pas pu traiter votre demande correctement."
-        else:
-            response = "Désolé, je n'ai pas pu traiter votre demande correctement."
+        
+        # Ajouter un avertissement standard
+        response += "\n\n⚠️ Important : Je suis un assistant virtuel et mes conseils ne remplacent pas une consultation médicale. Consultez un professionnel de santé pour un diagnostic précis."
         
         # Sauvegarder la réponse de l'IA
         ChatMessage.objects.create(
@@ -1250,6 +1301,7 @@ def patient_chat(request):
         return JsonResponse({'response': response})
         
     except Exception as e:
+        print(f"Erreur dans patient_chat: {str(e)}")  # Pour le débogage
         return JsonResponse({'error': str(e)}, status=500)
 
 @login_required

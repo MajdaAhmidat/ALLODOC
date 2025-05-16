@@ -102,40 +102,63 @@ def register_medecin(request):
 
 def register_patient(request):
     if request.method == 'POST':
-        # Récupération des données du formulaire
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        email = request.POST.get('email')
-        first_name = request.POST.get('first_name')
-        last_name = request.POST.get('last_name')
-        date_naissance = request.POST.get('date_naissance')
-        sexe = request.POST.get('sexe')
-        telephone = request.POST.get('telephone')
-        adresse = request.POST.get('adresse')
-        groupe_sanguin = request.POST.get('groupe_sanguin')
+        try:
+            username = request.POST.get('username')
+            email = request.POST.get('email')
+            password = request.POST.get('password')
+            first_name = request.POST.get('first_name')
+            last_name = request.POST.get('last_name')
+            date_naissance = request.POST.get('date_naissance')
+            sexe = request.POST.get('sexe')
+            telephone = request.POST.get('telephone')
+            adresse = request.POST.get('adresse')
+            groupe_sanguin = request.POST.get('groupe_sanguin')
+            antecedents_medicaux = request.POST.get('antecedents_medicaux', '')
 
-        # Création de l'utilisateur
-        user = User.objects.create_user(
-            username=username,
-            email=email,
-            password=password,
-            first_name=first_name,
-            last_name=last_name,
-            is_active=True  # Le compte est activé immédiatement pour les patients
-        )
+            # Vérifier si le nom d'utilisateur existe déjà
+            if User.objects.filter(username=username).exists():
+                messages.error(request, "Ce nom d'utilisateur est déjà pris. Veuillez en choisir un autre.")
+                return render(request, 'registration/register_patient.html', {
+                    'form_data': request.POST
+                })
 
-        # Création du profil patient
-        Patient.objects.create(
-            user=user,
-            date_naissance=date_naissance,
-            sexe=sexe,
-            telephone=telephone,
-            adresse=adresse,
-            groupe_sanguin=groupe_sanguin
-        )
+            # Vérifier si l'email existe déjà
+            if User.objects.filter(email=email).exists():
+                messages.error(request, "Cette adresse email est déjà utilisée. Veuillez en utiliser une autre.")
+                return render(request, 'registration/register_patient.html', {
+                    'form_data': request.POST
+                })
 
-        messages.success(request, 'Votre inscription a été effectuée avec succès. Vous pouvez maintenant vous connecter.')
-        return redirect('login')
+            # Créer l'utilisateur
+            user = User.objects.create_user(
+                username=username,
+                email=email,
+                password=password,
+                first_name=first_name,
+                last_name=last_name
+            )
+
+            # Créer le profil patient
+            patient = Patient.objects.create(
+                user=user,
+                date_naissance=date_naissance,
+                sexe=sexe,
+                telephone=telephone,
+                adresse=adresse,
+                groupe_sanguin=groupe_sanguin,
+                antecedents_medicaux=antecedents_medicaux
+            )
+
+            # Connecter l'utilisateur
+            login(request, user)
+            messages.success(request, "Compte créé avec succès. Bienvenue sur votre espace patient !")
+            return redirect('patient_dashboard')
+
+        except Exception as e:
+            messages.error(request, f"Une erreur s'est produite lors de l'inscription : {str(e)}")
+            return render(request, 'registration/register_patient.html', {
+                'form_data': request.POST
+            })
 
     return render(request, 'registration/register_patient.html')
 
