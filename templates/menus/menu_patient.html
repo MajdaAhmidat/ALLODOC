@@ -1,0 +1,13 @@
+<nav class="sidebar bg-light">
+  <ul class="nav flex-column">
+    <li class="nav-item"><a class="nav-link" href="{% url 'patient_dashboard' %}"><i class="fa fa-home menu-icon"></i> Tableau de bord</a></li>
+    <li class="nav-item"><a class="nav-link" href="{% url 'prendre_rdv' %}"><i class="fa fa-calendar-plus menu-icon"></i> Prendre rendez-vous</a></li>
+    <li class="nav-item"><a class="nav-link" href="{% url 'mes_rendez_vous' %}"><i class="fa fa-calendar menu-icon"></i> Mes rendez-vous</a></li>
+    <li class="nav-item"><a class="nav-link" href="{% url 'mes_prescriptions' %}"><i class="fa fa-prescription-bottle-alt menu-icon"></i> Mes prescriptions</a></li>
+    <li class="nav-item"><a class="nav-link" href="{% url 'resultats_tests' %}"><i class="fa fa-vials menu-icon"></i> Résultats de tests</a></li>
+    <li class="nav-item"><a class="nav-link" href="{% url 'messagerie_patient' %}"><i class="fa fa-envelope menu-icon"></i> Messagerie</a></li>
+    <li class="nav-item"><a class="nav-link" href="{% url 'historique_consultations' %}"><i class="fa fa-history menu-icon"></i> Historique</a></li>
+    <li class="nav-item"><a class="nav-link" href="{% url 'profil_patient' %}"><i class="fa fa-user-cog menu-icon"></i> Profil</a></li>
+    <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}"><i class="fa fa-sign-out menu-icon"></i> Déconnexion</a></li>
+  </ul>
+</nav> 

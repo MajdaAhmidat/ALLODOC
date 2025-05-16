@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Liste des Laboratoires{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Liste des Laboratoires</h4>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Téléphone</th>
+                                <th>Adresse</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for laboratoire in laboratoires %}
+                            <tr>
+                                <td>{{ laboratoire.nom }}</td>
+                                <td>{{ laboratoire.telephone }}</td>
+                                <td>{{ laboratoire.adresse }}</td>
+                                <td>
+                                    <a href="{% url 'laboratoire_detail' laboratoire.pk %}" class="btn btn-primary btn-sm">Détails</a>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="4" class="text-center">Aucun laboratoire trouvé</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

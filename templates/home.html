@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Bienvenue Sur AlloDocMedecins{% endblock %}
+
+{% block extra_css %}
+<style>
+.hero-header {
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+.hero-sub {
+    text-align: center;
+    font-size: 1.15rem;
+    color: #444;
+    margin-bottom: 2.2rem;
+    font-weight: 500;
+}
+.espaces-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+}
+.espace-card {
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+    padding: 2rem 2rem 1.5rem 2rem;
+    min-width: 320px;
+    max-width: 370px;
+    flex: 1 1 320px;
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.espace-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.7rem;
+    border-radius: 50%;
+    padding: 0.7rem;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.icon-patient { background: #4fc3f7; }
+.icon-medecin { background: #7e57c2; }
+.icon-labo { background: #26a69a; }
+.icon-pharma { background: #ff7043; }
+.espace-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+    text-align: center;
+}
+.espace-desc {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 1.2rem;
+    text-align: center;
+}
+.btn-connexion {
+    background: #1976d2;
+    color: #fff;
+    border-radius: 8px;
+    font-weight: 500;
+    padding: 0.5rem 1.5rem;
+    font-size: 1.05rem;
+    margin-bottom: 0.3rem;
+    transition: background 0.2s;
+}
+.btn-connexion:hover {
+    background: #125ea2;
+    color: #fff;
+}
+.link-creer {
+    display: block;
+    font-size: 0.98rem;
+    color: #1976d2;
+    text-decoration: underline;
+    margin-top: 0.2rem;
+    margin-bottom: 0.2rem;
+    font-weight: 500;
+    text-align: center;
+}
+@media (max-width: 991px) {
+    .espaces-row { flex-direction: column; align-items: center; }
+    .espace-card { width: 100%; max-width: 420px; }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="hero-sub">
+        Choisissez votre rôle ou votre besoin pour accéder à votre espace&nbsp;:
+    </div>
+    <div class="espaces-row">
+        <!-- Patient -->
+        <div class="espace-card">
+            <span class="espace-icon icon-patient"><i class="fa fa-user"></i></span>
+            <div class="espace-title">Espace Patient</div>
+            <div class="espace-desc">Accédez à votre espace personnel pour gérer vos rendez-vous et suivre votre santé.</div>
+            <a href="{% url 'login' %}" class="btn btn-connexion w-100 mb-1">Se connecter</a>
+            <a href="{% url 'register_patient' %}" class="link-creer">Créer un compte</a>
+        </div>
+        <!-- Médecin -->
+        <div class="espace-card">
+            <span class="espace-icon icon-medecin"><i class="fa fa-user-md"></i></span>
+            <div class="espace-title">Espace Médecin</div>
+            <div class="espace-desc">Gérez votre cabinet médical et vos rendez-vous en ligne.</div>
+            <a href="{% url 'login' %}" class="btn btn-connexion w-100 mb-1">Se connecter</a>
+            <a href="{% url 'register_medecin' %}" class="link-creer">Créer un compte</a>
+        </div>
+        <!-- Laboratoire -->
+        <div class="espace-card">
+            <span class="espace-icon icon-labo"><i class="fa fa-flask"></i></span>
+            <div class="espace-title">Espace Laboratoire</div>
+            <div class="espace-desc">Gérez vos analyses et résultats en ligne.</div>
+            <a href="{% url 'login' %}" class="btn btn-connexion w-100 mb-1">Se connecter</a>
+            <a href="{% url 'register_laboratoire' %}" class="link-creer">Créer un compte</a>
+        </div>
+        <!-- Pharmacien -->
+        <div class="espace-card">
+            <span class="espace-icon icon-pharma"><i class="fa fa-clinic-medical"></i></span>
+            <div class="espace-title">Espace Pharmacien</div>
+            <div class="espace-desc">Gérez votre pharmacie et vos ordonnances en ligne.</div>
+            <a href="{% url 'login' %}" class="btn btn-connexion w-100 mb-1">Se connecter</a>
+            <a href="{% url 'register_pharmacien' %}" class="link-creer">Créer un compte</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+    // Variables globales pour la carte
+    var userLat = {{ user_lat }};
+    var userLng = {{ user_lng }};
+</script>
+<script src="{% static 'js/map.js' %}"></script>
+{% endblock %} 

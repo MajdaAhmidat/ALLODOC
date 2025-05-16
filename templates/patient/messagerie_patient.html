@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Messagerie{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="fa fa-comments me-2"></i>Messagerie</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 border-end">
+                            <h6 class="fw-bold">Médecins</h6>
+                            <ul class="list-group mb-3">
+                                {% for medecin in medecins %}
+                                    <li class="list-group-item {% if medecin.id == selected_medecin_id %}active{% endif %}">
+                                        <a href="?medecin={{ medecin.id }}" class="text-decoration-none {% if medecin.id == selected_medecin_id %}text-white{% else %}text-dark{% endif %}">
+                                            Dr {{ medecin.user.last_name }} {{ medecin.user.first_name }}<br>
+                                            <small>{{ medecin.specialite }}</small>
+                                        </a>
+                                    </li>
+                                {% empty %}
+                                    <li class="list-group-item text-muted">Aucun médecin</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="mb-3" style="height: 300px; overflow-y: auto; background: #f8f9fa; border-radius: 8px; padding: 1rem;">
+                                {% if messages %}
+                                    {% for msg in messages %}
+                                        <div class="d-flex mb-2 {% if msg.expediteur == user %}justify-content-end{% else %}justify-content-start{% endif %}">
+                                            <div class="p-2 rounded {% if msg.expediteur == user %}bg-primary text-white{% else %}bg-light text-dark{% endif %}">
+                                                <div style="font-size:0.95em;">{{ msg.contenu }}</div>
+                                                <div class="text-end" style="font-size:0.8em; opacity:0.7;">
+                                                    {{ msg.created_at|date:'d/m/Y H:i' }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                {% else %}
+                                    <div class="text-muted">Aucun message pour cette conversation.</div>
+                                {% endif %}
+                            </div>
+                            {% if selected_medecin_id %}
+                                <form method="post" class="d-flex mt-2">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="medecin" value="{{ selected_medecin_id }}">
+                                    <input type="text" name="message" class="form-control me-2" placeholder="Votre message..." required>
+                                    <button type="submit" class="btn btn-primary"><i class="fa fa-paper-plane"></i></button>
+                                </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

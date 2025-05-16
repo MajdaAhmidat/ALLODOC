@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Détail Pharmacien{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 offset-md-2 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Détail du Pharmacien</h4>
+                <ul class="list-group">
+                    <li class="list-group-item"><strong>Nom Officine :</strong> {{ pharmacien.nom_officine }}</li>
+                    <li class="list-group-item"><strong>Téléphone :</strong> {{ pharmacien.telephone }}</li>
+                    <li class="list-group-item"><strong>Adresse :</strong> {{ pharmacien.adresse }}</li>
+                    <li class="list-group-item"><strong>Date d'inscription :</strong> {{ pharmacien.date_inscription|date:'d/m/Y H:i' }}</li>
+                </ul>
+                <a href="{% url 'pharmacien_list' %}" class="btn btn-secondary mt-3">Retour à la liste</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

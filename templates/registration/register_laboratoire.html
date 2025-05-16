@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="text-center">Inscription Laboratoire</h3>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <div class="form-group mb-3">
+                            <label for="username">Nom d'utilisateur</label>
+                            <input type="text" class="form-control" id="username" name="username" required>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="password">Mot de passe</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="nom">Nom du laboratoire</label>
+                            <input type="text" class="form-control" id="nom" name="nom" required>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="telephone">Téléphone</label>
+                            <input type="tel" class="form-control" id="telephone" name="telephone" required>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="adresse">Adresse</label>
+                            <textarea class="form-control" id="adresse" name="adresse" required></textarea>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="email_professionnel">Email professionnel</label>
+                            <input type="email" class="form-control" id="email_professionnel" name="email_professionnel" required>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="numero_agrement">Numéro d'agrément</label>
+                            <input type="text" class="form-control" id="numero_agrement" name="numero_agrement" required>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="horaires">Horaires d'ouverture</label>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Lundi</label>
+                                    <input type="time" class="form-control mb-2" name="horaires_lundi_debut" required>
+                                    <input type="time" class="form-control" name="horaires_lundi_fin" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Mardi</label>
+                                    <input type="time" class="form-control mb-2" name="horaires_mardi_debut" required>
+                                    <input type="time" class="form-control" name="horaires_mardi_fin" required>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-md-6">
+                                    <label>Mercredi</label>
+                                    <input type="time" class="form-control mb-2" name="horaires_mercredi_debut" required>
+                                    <input type="time" class="form-control" name="horaires_mercredi_fin" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Jeudi</label>
+                                    <input type="time" class="form-control mb-2" name="horaires_jeudi_debut" required>
+                                    <input type="time" class="form-control" name="horaires_jeudi_fin" required>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-md-6">
+                                    <label>Vendredi</label>
+                                    <input type="time" class="form-control mb-2" name="horaires_vendredi_debut" required>
+                                    <input type="time" class="form-control" name="horaires_vendredi_fin" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Samedi</label>
+                                    <input type="time" class="form-control mb-2" name="horaires_samedi_debut">
+                                    <input type="time" class="form-control" name="horaires_samedi_fin">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="services">Services proposés</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="services" value="analyses_sang" id="sang">
+                                <label class="form-check-label" for="sang">Analyses de sang</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="services" value="analyses_urine" id="urine">
+                                <label class="form-check-label" for="urine">Analyses d'urine</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="services" value="tests_covid" id="covid">
+                                <label class="form-check-label" for="covid">Tests COVID-19</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="services" value="prelevement_domicile" id="prelevement">
+                                <label class="form-check-label" for="prelevement">Prélèvement à domicile</label>
+                            </div>
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">S'inscrire</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

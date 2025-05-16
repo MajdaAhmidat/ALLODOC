@@ -1,0 +1,235 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Prendre rendez-vous{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+<style>
+.appointment-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.professional-info {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+.availability-slots {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.time-slot {
+    padding: 0.75rem;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.time-slot:hover {
+    background: #e9ecef;
+}
+
+.time-slot.available {
+    background: #28a745;
+    color: white;
+    border-color: #28a745;
+}
+
+.time-slot.unavailable {
+    background: #dc3545;
+    color: white;
+    border-color: #dc3545;
+    cursor: not-allowed;
+}
+
+.time-slot.selected {
+    background: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+.appointment-form {
+    background: white;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.flatpickr-calendar {
+    width: 100% !important;
+}
+
+.flatpickr-day.selected {
+    background: #007bff !important;
+    border-color: #007bff !important;
+}
+
+.flatpickr-day.disabled {
+    color: #dc3545 !important;
+    text-decoration: line-through;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="appointment-container">
+        <div class="professional-info">
+            <div class="row">
+                <div class="col-md-8">
+                    <h2>Dr. {{ medecin.user.get_full_name }}</h2>
+                    <p class="text-muted">{{ medecin.specialite }}</p>
+                    <p><i class="fas fa-map-marker-alt me-2"></i>{{ medecin.adresse }}</p>
+                    <p><i class="fas fa-phone me-2"></i>{{ medecin.telephone }}</p>
+                </div>
+                <div class="col-md-4 text-end">
+                    <p class="mb-2"><strong>Tarif de consultation</strong></p>
+                    <h4>{{ medecin.tarif }} €</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="appointment-form">
+            <h3 class="mb-4">Prendre rendez-vous</h3>
+            
+            <form method="POST" id="appointmentForm">
+                {% csrf_token %}
+                <input type="hidden" name="medecin_id" value="{{ medecin.id }}">
+                
+                <div class="form-group">
+                    <label for="date">Date du rendez-vous</label>
+                    <input type="text" class="form-control" id="date" name="date" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Horaires disponibles</label>
+                    <div class="availability-slots" id="timeSlots">
+                        <!-- Les créneaux seront ajoutés dynamiquement -->
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="motif">Motif de la consultation</label>
+                    <textarea class="form-control" id="motif" name="motif" rows="3" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="notes">Notes supplémentaires (optionnel)</label>
+                    <textarea class="form-control" id="notes" name="notes" rows="2"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-calendar-check me-2"></i>Confirmer le rendez-vous
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/fr.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Configuration du calendrier
+    const calendar = flatpickr("#date", {
+        locale: "fr",
+        minDate: "today",
+        maxDate: new Date().fp_incr(30), // 30 jours à partir d'aujourd'hui
+        disable: [
+            function(date) {
+                // Désactiver les dimanches
+                return (date.getDay() === 0);
+            }
+        ],
+        onChange: function(selectedDates, dateStr) {
+            updateTimeSlots(dateStr);
+        }
+    });
+
+    // Fonction pour mettre à jour les créneaux horaires
+    function updateTimeSlots(date) {
+        const timeSlots = document.getElementById('timeSlots');
+        timeSlots.innerHTML = '<div class="text-center"><i class="fas fa-spinner fa-spin"></i> Chargement des créneaux...</div>';
+
+        // Appel AJAX à l'API Django pour obtenir les créneaux disponibles
+        fetch(`/rendez-vous/creneaux/{{ medecin.id }}/?date=${date}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    timeSlots.innerHTML = `<div class='text-danger'>${data.error}</div>`;
+                    return;
+                }
+                const slots = data.slots;
+                if (!slots.length) {
+                    timeSlots.innerHTML = '<div class="text-danger">Aucun créneau disponible pour cette date.</div>';
+                    return;
+                }
+                timeSlots.innerHTML = slots.map(slot => `
+                    <div class="time-slot ${slot.available ? 'available' : 'unavailable'}" 
+                         data-time="${slot.time}"
+                         ${slot.available ? 'onclick="selectTimeSlot(this)"' : ''}>
+                        ${slot.time}
+                    </div>
+                `).join('');
+            })
+            .catch(() => {
+                timeSlots.innerHTML = '<div class="text-danger">Erreur lors du chargement des créneaux.</div>';
+            });
+    }
+
+    // Fonction pour sélectionner un créneau
+    window.selectTimeSlot = function(element) {
+        // Désélectionner tous les créneaux
+        document.querySelectorAll('.time-slot').forEach(slot => {
+            slot.classList.remove('selected');
+        });
+
+        // Sélectionner le créneau cliqué
+        element.classList.add('selected');
+
+        // Ajouter le créneau sélectionné au formulaire
+        const timeInput = document.createElement('input');
+        timeInput.type = 'hidden';
+        timeInput.name = 'time';
+        timeInput.value = element.dataset.time;
+
+        // Supprimer l'ancien input s'il existe
+        const oldInput = document.querySelector('input[name="time"]');
+        if (oldInput) oldInput.remove();
+
+        // Ajouter le nouvel input
+        document.getElementById('appointmentForm').appendChild(timeInput);
+    };
+
+    // Gestion de la soumission du formulaire
+    document.getElementById('appointmentForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const selectedTime = document.querySelector('input[name="time"]');
+        if (!selectedTime) {
+            alert('Veuillez sélectionner un créneau horaire');
+            return;
+        }
+
+        // Envoyer le formulaire
+        this.submit();
+    });
+});
+</script>
+{% endblock %} 

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Ajouter une disponibilité{% endblock %}
+{% block content %}
+<div class="container mt-4">
+  <h3>Ajouter une disponibilité</h3>
+  <form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="date" class="form-label">Date</label>
+      <input type="date" class="form-control" id="date" name="date" required>
+    </div>
+    <div class="mb-3">
+      <label for="heure_debut" class="form-label">Heure de début</label>
+      <input type="time" class="form-control" id="heure_debut" name="heure_debut" required>
+    </div>
+    <div class="mb-3">
+      <label for="heure_fin" class="form-label">Heure de fin</label>
+      <input type="time" class="form-control" id="heure_fin" name="heure_fin" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Ajouter</button>
+  </form>
+</div>
+{% endblock %} 

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}Ordonnances{% endblock %}
+{% block content %}
+<div class="container mt-4">
+  <h3>Ordonnances</h3>
+  <form method="post" class="mb-4">
+    {% csrf_token %}
+    <div class="row">
+      <div class="col-md-4">
+        <label for="patient" class="form-label">Patient</label>
+        <select name="patient" id="patient" class="form-select" required>
+          <option value="">Sélectionner...</option>
+          {% for patient in patients %}
+            <option value="{{ patient.pk }}">{{ patient.user.get_full_name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-8">
+        <label for="medicaments" class="form-label">Médicaments</label>
+        <textarea name="medicaments" id="medicaments" class="form-control" rows="2" required></textarea>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary mt-2">Créer l'ordonnance</button>
+  </form>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Patient</th>
+        <th>Médicaments</th>
+        <th>Date</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for ordonnance in ordonnances %}
+      <tr>
+        <td>{{ ordonnance.patient.user.get_full_name }}</td>
+        <td>{{ ordonnance.medicaments }}</td>
+        <td>{{ ordonnance.created_at|date:'d/m/Y H:i' }}</td>
+        <td><a href="#" class="btn btn-sm btn-info">Voir</a></td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="4">Aucune ordonnance générée.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %} 

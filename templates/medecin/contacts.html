@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}Contacts utiles{% endblock %}
+{% block content %}
+<div class="container mt-4">
+  <h3>Laboratoires</h3>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Téléphone</th>
+        <th>Adresse</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for labo in laboratoires %}
+      <tr>
+        <td>{{ labo.nom }}</td>
+        <td>{{ labo.telephone }}</td>
+        <td>{{ labo.adresse }}</td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="3">Aucun laboratoire trouvé.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <h3>Pharmacies</h3>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Téléphone</th>
+        <th>Adresse</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for pharma in pharmacies %}
+      <tr>
+        <td>{{ pharma.nom_officine }}</td>
+        <td>{{ pharma.telephone }}</td>
+        <td>{{ pharma.adresse }}</td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="3">Aucune pharmacie trouvée.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %} 

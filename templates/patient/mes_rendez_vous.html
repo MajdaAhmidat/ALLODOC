@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Mes rendez-vous{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="fa fa-calendar-alt me-2"></i>Mes rendez-vous</h5>
+                </div>
+                <div class="card-body">
+                    {% if rendez_vous %}
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Date & Heure</th>
+                                        <th>Médecin</th>
+                                        <th>Motif</th>
+                                        <th>Statut</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for rdv in rendez_vous %}
+                                        <tr>
+                                            <td>{{ rdv.date_heure|date:'d/m/Y H:i' }}</td>
+                                            <td>
+                                                Dr {{ rdv.medecin.user.last_name }} {{ rdv.medecin.user.first_name }}<br>
+                                                <small class="text-muted">{{ rdv.medecin.specialite }}</small>
+                                            </td>
+                                            <td>{{ rdv.motif }}</td>
+                                            <td>
+                                                {% if rdv.statut == 'en_attente' %}
+                                                    <span class="badge bg-warning text-dark">En attente</span>
+                                                {% elif rdv.statut == 'confirme' %}
+                                                    <span class="badge bg-success">Confirmé</span>
+                                                {% elif rdv.statut == 'annule' %}
+                                                    <span class="badge bg-danger">Refusé</span>
+                                                {% else %}
+                                                    <span class="badge bg-secondary">{{ rdv.statut }}</span>
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if rdv.statut == 'en_attente' %}
+                                                    <form method="post" action="{% url 'cancel_appointment' rdv.id %}" class="d-inline">
+                                                        {% csrf_token %}
+                                                        <button type="submit" class="btn btn-danger btn-sm">
+                                                            <i class="fas fa-times me-1"></i>Annuler
+                                                        </button>
+                                                    </form>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <p class="text-center text-muted">Vous n'avez aucun rendez-vous.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
